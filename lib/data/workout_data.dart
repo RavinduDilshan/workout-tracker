@@ -6,6 +6,9 @@ class WorkoutData extends ChangeNotifier {
   List<Workout> workoutList = [
     Workout(name: 'Upper Body', exercises: [
       Exercise(name: 'Bicep Curls', weight: '10', reps: '10', sets: '3')
+    ]),
+    Workout(name: 'Lower Body', exercises: [
+      Exercise(name: 'Squats', weight: '10', reps: '10', sets: '3')
     ])
   ];
 
@@ -45,7 +48,7 @@ class WorkoutData extends ChangeNotifier {
 
     //check off boolean to show user complete the exercise
     releventExercise.isCompleted = !releventExercise.isCompleted;
-    notifyListeners(); 
+    notifyListeners();
   }
 
   //return relevent workout object, given workout name
