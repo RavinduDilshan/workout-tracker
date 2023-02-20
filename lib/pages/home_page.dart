@@ -11,6 +11,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    Provider.of<WorkoutData>(context, listen: false).initializeWorkoutList();
+    super.initState();
+  }
+
 //text controller
   final newWorkoutNameController = TextEditingController();
 

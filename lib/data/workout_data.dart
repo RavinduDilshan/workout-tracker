@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:fresh/data/hive_database.dart';
 import 'package:fresh/models/exercise.dart';
 import 'package:fresh/models/workout.dart';
 
 class WorkoutData extends ChangeNotifier {
+  final db = HiveDatabase();
+
   List<Workout> workoutList = [
     Workout(name: 'Upper Body', exercises: [
       Exercise(name: 'Bicep Curls', weight: '10', reps: '10', sets: '3')
@@ -11,6 +14,15 @@ class WorkoutData extends ChangeNotifier {
       Exercise(name: 'Squats', weight: '10', reps: '10', sets: '3')
     ])
   ];
+
+  //if there are workouts already in db,then get that workout list,otherwise get default workouts(for fist time for app)
+  void initializeWorkoutList() {
+    if (db.previousDataExists()) {
+      workoutList = db.readFromDatabase();
+    } else {
+      db.saveToDatabase(workoutList);
+    }
+  }
 
   //get length of a given workout
   int numberOfExercisesInWorkout(String workoutName) {
@@ -29,6 +41,7 @@ class WorkoutData extends ChangeNotifier {
     //add workout with blank list of exercises
     workoutList.add(Workout(name: name, exercises: []));
     notifyListeners();
+    db.saveToDatabase(workoutList);
   }
 
   //add an exercise to a workout
@@ -39,6 +52,7 @@ class WorkoutData extends ChangeNotifier {
     releventWorkout.exercises.add(
         Exercise(name: exerciseName, weight: weight, reps: reps, sets: sets));
     notifyListeners();
+    db.saveToDatabase(workoutList);
   }
 
   //check off exercise
@@ -49,6 +63,7 @@ class WorkoutData extends ChangeNotifier {
     //check off boolean to show user complete the exercise
     releventExercise.isCompleted = !releventExercise.isCompleted;
     notifyListeners();
+    db.saveToDatabase(workoutList);
   }
 
   //return relevent workout object, given workout name
