@@ -7,7 +7,8 @@ import 'package:provider/provider.dart';
 void main() async {
 //initialize hive
   await Hive.initFlutter();
-  await Hive.openBox('testBox');
+//open a box
+  await Hive.openBox('workout_database1');
 
   runApp(const MyApp());
 }

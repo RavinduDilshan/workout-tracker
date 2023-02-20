@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fresh/data/workout_data.dart';
 import 'package:fresh/pages/workout_page.dart';
-import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,13 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-
-
-  
-     
-      Provider.of<WorkoutData>(context, listen: false).initializeWorkoutList();
- 
-
+    Provider.of<WorkoutData>(context, listen: false).initializeWorkoutList();
     super.initState();
   }
 
